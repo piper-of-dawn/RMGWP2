@@ -1,0 +1,3 @@
+- Some equations do not show as tex math. I was trying to fix that.
+- Equations (iii), (v), (vi), (vii) still have this issue.
+- All these equations show as tex math in jupyter notebook markdown cells but are not showing in Github md.
