@@ -31,20 +31,26 @@ $$\xi_{t}(i,j) = P(q_{t} = i, q_{t+1}) = j/O,\lambda)$$ <p style="text-align: ri
 
 The variables $\xi_{t}(i,j)$ can be expressed as:
 
-$$\xi_{t}(i,j) = \frac{P(q_{t} = i, q_{t+1} = j/O,\lambda)}{P(O/\lambda)}$$  <p style="text-align: right;">(ii)</p>
+$$\xi_{t}(i,j) = \frac{P(q_{t} = i, q_{t+1} = j/O,\lambda)}{P(O/\lambda)}$$  
+<p style="text-align: right;">(ii)</p>
 $$=\frac{\alpha_{t}(i)a_{ij}b_{j}(o_{t+1})\beta_{t+1}(j)}{P(O/\lambda)}$$
-$$=\frac{\alpha_{\tau}(i)a_{ij}b_{j}(o_{t+1})\beta_{t+1}(j)}{\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_{\tau}(i)a_{ij}b_{j}(o_{t+1})\beta_{t+1}(j)}$$  <p style="text-align: right;">(iii)</p>
+$$=\frac{\alpha_{\tau}(i)a_{ij}b_{j}(o_{t+1})\beta_{t+1}(j)}{\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_{\tau}(i)a_{ij}b_{j}(o_{t+1})\beta_{t+1}(j)}$$ 
+<p style="text-align: right;">(iii)</p>
 
 Furthermore, let $\gamma_{t}(i)$ denote the likelihood of being in state $i$ at time $t$, considering the model and the whole observation sequence.By adding up, this may be connected to $\xi_{t}(i,j)$ as follows:
-$$\gamma_{t}(i) = \sum_{j=1}^{N}\xi_{t}(i,j)$$  <p style="text-align: right;">(iv)</p>
+$$\gamma_{t}(i) = \sum_{j=1}^{N}\xi_{t}(i,j)$$  
+<p style="text-align: right;">(iv)</p>
 
 One way to understand $\gamma_{t}(i)$ is as the expected number of visits or transitions from state $i$, which is obtained by adding $\gamma_{t}(i)$ across the time index $t$. The predicted number of transitions from state $i$ to state $j$ is also found by adding up $\xi_{t}(i,j)$ over $t$. The original state transition probabilities of the HMM can be reestimated by utilizing the notion of event occurrences. Transition probabilities for states A and output probability distribution for states B. One way to depict this would be:
 
-$$\overline{\pi}_{j} = \gamma_{1}(i)$$  <p style="text-align: right;">(v)</p>
+$$\overline{\pi}_{j} = \gamma_{1}(i)$$  
+<p style="text-align: right;">(v)</p>
 <p style="text-align: right;">= number of times in state $i$ at time $t = 1$</p>
-$$\overline{a}_{ij} = \frac{\sum_{t=1}^{T-1}\xi_{t}(i,j)}{\sum_{t=1}^{T-1}\gamma_{t}(i)}$$  <p style="text-align: right;">(vi)</p>
+$$\overline{a}_{ij} = \frac{\sum_{t=1}^{T-1}\xi_{t}(i,j)}{\sum_{t=1}^{T-1}\gamma_{t}(i)}$$ 
+<p style="text-align: right;">(vi)</p>
 <p style="text-align: right;">= expected number of transitions from state $i$ to state $j$ / expected number of transitions from state $i$</p> <br>
-$$\overline{b}_{j}(k) = \frac{\underset{o_{t=v_{k}}}{\sum_{t=1}^{T}\gamma_{t}(j)}}{\sum_{t=1}^{T}\gamma_{t}(j)}$$   <p style="text-align: right;">(vii)</p>
+$$\overline{b}_{j}(k) = \frac{\underset{o_{t=v_{k}}}{\sum_{t=1}^{T}\gamma_{t}(j)}}{\sum_{t=1}^{T}\gamma_{t}(j)}$$  
+<p style="text-align: right;">(vii)</p>
 <p style="text-align: right;">=expected number of times in state $j$ and observing symbol $v_{k}$ /  expected number of times in state $j$</p>
 
 It can be demonstrated that either the initial model $\lambda$ defines a critical point of the likelihood function in which case $\overline{\lambda} = \lambda$, or the model $\overline{\lambda}$ is more likely than the model $\lambda$ in the sense that $P(O/\overline{\lambda} )>P(O/ \lambda)$. This is if the current model is defined as $\lambda = (A,B,\pi)$ and use (v), (vi), and (vii) to compute reestimated parameters $\overline{\lambda} = (\overline{A},\overline{B},\overline{\pi})$.The likelihood that the observation sequence will be seen from the model can be increased by carrying out the aforementioned approach across several iterations.
@@ -64,18 +70,20 @@ The series of hidden states that optimizes the likelihood of the detected emissi
 - The emission sequence for an example can be <code>[68, 72, 73, 71, 75, 70]</code> (spot price of crude oil)
 - The hidden states would bullish, bearish or stagnant markets.
 - Transition probabilities can be <br>
-<code>P(Bullish | Bullish) = 0.5, P(Bullish | Bearish) = 0.2, P(Bullish | Stagnant) = 0.3,
+```
+P(Bullish | Bullish) = 0.5, P(Bullish | Bearish) = 0.2, P(Bullish | Stagnant) = 0.3,
 P(Bearish | Bullish) = 0.1, P(Bearish | Bearish) = 0.6, P(Bearish | Stagnant) = 0.3,
 P(Stagnant | Bullish) = 0.1, P(Stagnant | Bearish) = 0.2, P(Stagnant | Stagnant) = 0.7.
-</code>
+```
 - Emission probabilities can be <br>
-<code>P(68 | Bullish) = 0.5, P(72 | Bullish) = 0.3, P(73 | Bullish) = 0.2,
+```
+P(68 | Bullish) = 0.5, P(72 | Bullish) = 0.3, P(73 | Bullish) = 0.2,
 P(71 | Bearish) = 0.2, P(75 | Bearish) = 0.5, P(69 | Bearish) = 0.3,
 P(70 | Stagnant) = 0.4, P(72 | Stagnant) = 0.3, P(71 | Stagnant) = 0.3.
-</code>
+```
 
 To run the Viterbi algorithm, the initial state probabilities can be used. After completing every step of the algorithm, it will backtrack and create the ideal sequence as the result. The ouput can look something like this:<br>
-<code>[Bearish, Bullish, Stagnant, Stagnant, Bullish, Bearish]</code>
+```[Bearish, Bullish, Stagnant, Stagnant, Bullish, Bearish]```
 
 ### Step 7
 The regime that is not immediately visible will be represented by hidden states. The study analyzes how indexing these hidden states based on their arithmetic mean might reveal their underlying significance.
